@@ -1,11 +1,10 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        stack=[]
-        ob="("
-        cb=")"
-        for i in range(len(s)):
-            if stack!=[] and stack[-1]=="(" and s[i]==")":
-                stack.pop()
+        flag=True
+        while flag:
+            if "()" in s:
+                s=s[:s.find("()")]+s[s.find("()")+2:]
+                flag=True
             else:
-                stack.append(s[i])
-        return len(stack)
+                flag=False
+        return len(s)
