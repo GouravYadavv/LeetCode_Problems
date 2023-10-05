@@ -1,10 +1,13 @@
 from collections import Counter
+
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        dict=Counter(nums)
-        res=[]
-        compare=len(nums)/3
-        for i in dict:
-            if dict[i]>compare:
-                res.append(i)
-        return res
+        counts = Counter(nums)
+        result = []
+        compare = len(nums) // 3
+
+        for num, count in counts.items():
+            if count > compare:
+                result.append(num)
+
+        return result
