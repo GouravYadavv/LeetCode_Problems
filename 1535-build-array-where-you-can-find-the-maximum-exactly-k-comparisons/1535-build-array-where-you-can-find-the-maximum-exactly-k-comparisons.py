@@ -10,4 +10,3 @@ class Solution:
                     for x in range(1,j):
                         dp[i][j][l]+=dp[i-1][x][l-1]
         return sum(dp[n][i][k] for i in range(1,m+1))%(10**9+7)
-    
