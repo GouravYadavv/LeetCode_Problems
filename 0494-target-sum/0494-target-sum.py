@@ -3,7 +3,7 @@ class Solution:
         Sum=sum(nums)
         n=len(nums)
         x=Sum+target
-
+        nums.sort(reverse=True)
         if x%2!=0:
             return 0
         else:
@@ -27,7 +27,10 @@ class Solution:
 
                     c=c1+c2
                 else:
-                    c=Solve(n-1,sm)
+                    if sm==0:
+                        c=1
+                    else:
+                        c=0 
                 
                 dp[(n,sm)]=c
                 return c
