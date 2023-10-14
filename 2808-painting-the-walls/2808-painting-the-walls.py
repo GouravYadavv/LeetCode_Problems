@@ -1,8 +1,7 @@
 class Solution:
     def paintWalls(self, cost: List[int], time: List[int]) -> int:
-        k=500000000
         n = len(cost)
-        dp = [k] * (n + 1)
+        dp = [float('inf')] * (n + 1)
         dp[0] = 0
 
         for i in range(n):
