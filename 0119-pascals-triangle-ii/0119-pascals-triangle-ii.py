@@ -1,13 +1,6 @@
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        res = [[1]]
-        
-        for i in range(rowIndex):
-            temp = [0] + res[-1] + [0]
-            row = []
-
-            for j in range(len(res[-1])+1):
-                row.append(temp[j] + temp[j+1])
-            res.append(row)
-
-        return res[-1]
+        row=[1]
+        for i in range(1,rowIndex+1):
+            row.append(int(row[i-1]*(rowIndex-i+1)/i))
+        return row
