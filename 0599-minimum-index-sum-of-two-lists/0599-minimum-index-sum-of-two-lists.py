@@ -1,7 +1,7 @@
 class Solution:
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
         
-        min_idx=len(list1)+len(list2)
+        min_idx=float("inf")
         ans=[]
         for i in range(len(list1)):
 
@@ -14,7 +14,7 @@ class Solution:
                         ans.append(list1[i])
                     break
         
-        if min_idx==len(list1)+len(list2):
+        if min_idx==float("inf"):
             return -1
         else:
             return ans
