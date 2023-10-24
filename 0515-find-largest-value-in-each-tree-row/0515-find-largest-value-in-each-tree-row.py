@@ -12,18 +12,17 @@ class Solution:
         if not root:
             return []
         
-        queue = deque([root])
         res = []
-
-        while queue:
-            size = len(queue)
-            max_val = float('-inf')
-            for _ in range(size):
-                node = queue.popleft()
-                max_val = max(max_val, node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            res.append(max_val)
+        
+        def dfs(node, level):
+            if not node:
+                return
+            if level == len(res):
+                res.append(node.val)
+            else:
+                res[level] = max(res[level], node.val)
+            dfs(node.left, level + 1)
+            dfs(node.right, level + 1)
+        
+        dfs(root, 0)
         return res
