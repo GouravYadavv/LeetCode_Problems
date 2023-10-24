@@ -11,16 +11,16 @@ class Solution:
             return []
         
         res = []
+        stack = [(root, 0)]
         
-        def dfs(node, level):
-            if not node:
-                return
+        while stack:
+            node, level = stack.pop()
             if level == len(res):
                 res.append(node.val)
             else:
                 res[level] = max(res[level], node.val)
-            dfs(node.left, level + 1)
-            dfs(node.right, level + 1)
-        
-        dfs(root, 0)
+            if node.left:
+                stack.append((node.left, level + 1))
+            if node.right:
+                stack.append((node.right, level + 1))
         return res
