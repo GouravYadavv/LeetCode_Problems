@@ -1,44 +1,41 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+
 class Solution {
 public:
-    vector<int> largestValues(TreeNode* root) {
+    std::vector<int> largestValues(TreeNode* root) {
         if (!root) {
             return {};
         }
+        
+        std::queue<TreeNode*> q;
+        q.push(root);
+        std::vector<int> res;
 
-        vector<int> res;
-        stack<pair<TreeNode*, int>> s;
-        s.push({root, 0});
+        while (!q.empty()) {
+            int size = q.size();
+            int max_val = INT_MIN;
 
-        while (!s.empty()) {
-            TreeNode* node = s.top().first;
-            int level = s.top().second;
-            s.pop();
+            for (int i = 0; i < size; ++i) {
+                TreeNode* node = q.front();
+                q.pop();
 
-            if (level == res.size()) {
-                res.push_back(node->val);
-            } else {
-                res[level] = max(res[level], node->val);
+                max_val = std::max(max_val, node->val);
+
+                if (node->left) {
+                    q.push(node->left);
+                }
+
+                if (node->right) {
+                    q.push(node->right);
+                }
             }
 
-            if (node->left) {
-                s.push({node->left, level + 1});
-            }
-            if (node->right) {
-                s.push({node->right, level + 1});
-            }
+            res.push_back(max_val);
         }
 
         return res;
     }
-    };
+};
