@@ -3,13 +3,15 @@ class Solution:
         if len(s) <= 1:
             return s
         
-        max_len = 1
-        max_str = s[0]
-        
+        Max_Len=1
+        Max_Str=s[0]
+        dp = [[False for _ in range(len(s))] for _ in range(len(s))]
         for i in range(len(s)):
-            for j in range(i + max_len, len(s) + 1):
-                if j - i > max_len and s[i:j] == s[i:j][::-1]:
-                    max_len = j - i
-                    max_str = s[i:j]
-
-        return max_str
+            dp[i][i] = True
+            for j in range(i):
+                if s[j] == s[i] and (i-j <= 2 or dp[j+1][i-1]):
+                    dp[j][i] = True
+                    if i-j+1 > Max_Len:
+                        Max_Len = i-j+1
+                        Max_Str = s[j:i+1]
+        return Max_Str
