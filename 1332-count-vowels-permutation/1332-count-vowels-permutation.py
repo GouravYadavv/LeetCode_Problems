@@ -1,12 +1,18 @@
 class Solution:
     def countVowelPermutation(self, n: int) -> int:
+        if n==0:
+            return 0
         MOD = 10 ** 9 + 7
-        a_count = e_count = i_count = o_count = u_count = 1
-        for _ in range(1, n):
-            a_count, e_count, i_count, o_count, u_count = \
-                (e_count + i_count + u_count) % MOD, \
-                (a_count + i_count) % MOD, \
-                (e_count + o_count) % MOD, \
-                i_count, \
-                (i_count + o_count) % MOD
-        return (a_count + e_count + i_count + o_count + u_count) % MOD
+
+        dp=[[1,1,1,1,1]]
+        a,e,i,o,u=0,1,2,3,4
+
+        for j in range(1,n+1):
+            dp.append([0,0,0,0,0])
+            dp[j][a]=(dp[j-1][e]+dp[j-1][i]+dp[j-1][u])%MOD
+            dp[j][e]=(dp[j-1][a]+dp[j-1][i])%MOD
+            dp[j][i]=(dp[j-1][e]+dp[j-1][o])%MOD
+            dp[j][o]=(dp[j-1][i])%MOD
+            dp[j][u]=(dp[j-1][i]+dp[j-1][o])%MOD
+        
+        return sum(dp[n-1])%MOD
